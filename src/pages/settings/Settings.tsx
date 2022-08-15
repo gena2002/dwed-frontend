@@ -12,17 +12,54 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import EditNotificationsOutlinedIcon from '@mui/icons-material/EditNotificationsOutlined';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
+import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
+
+import AccountSettings from "./AccountSettings";
+import NotificationSettings from "./NotificationSettings";
+import SecuritySettings from "./SecuritySettings";
+import ChatSettings from "./ChatSettings";
+import PaymentSettings from "./PaymentSettings";
 
 type Props = {}
 
 export default function Settings(props: Props) {
-
-    const listItem = [
-        {id: 1, title: 'Account', icon: <PermIdentityOutlinedIcon/>, url: '/account'},
-        {id: 2, title: 'Notification', icon: <EditNotificationsOutlinedIcon/>, url: '/notification'},
-        {id: 3, title: 'Security', icon: <LockOutlinedIcon/>, url: '/security'},
-        {id: 4, title: 'Chat settings', icon: <ChatOutlinedIcon/>, url: '/chat_settings'},
-        {id: 5, title: 'Payment', icon: <AccountBalanceWalletOutlinedIcon/>, url: '/payment'},
+    const navigate = useNavigate();
+    const items = [
+        {
+            id: 1,
+            title: 'Account',
+            icon: <PermIdentityOutlinedIcon/>,
+            url: 'account',
+            element: <AccountSettings/>
+        },
+        {
+            id: 2,
+            title: 'Notification',
+            icon: <EditNotificationsOutlinedIcon/>,
+            url: 'notification',
+            element: <NotificationSettings/>
+        },
+        {
+            id: 3,
+            title: 'Security',
+            icon: <LockOutlinedIcon/>,
+            url: 'security',
+            element: <SecuritySettings/>
+        },
+        {
+            id: 4,
+            title: 'Chat settings',
+            icon: <ChatOutlinedIcon/>,
+            url: 'chat_settings',
+            element: <ChatSettings/>
+        },
+        {
+            id: 5,
+            title: 'Payment',
+            icon: <AccountBalanceWalletOutlinedIcon/>,
+            url: 'payment',
+            element: <PaymentSettings/>
+        },
     ]
 
     const drawer = (
@@ -30,8 +67,8 @@ export default function Settings(props: Props) {
             <Toolbar/>
             <Divider/>
             <List>
-                {listItem.map(({id, title, icon, url}: any) => (
-                    <ListItem key={id} disablePadding>
+                {items.map(({id, title, icon, url}: any) => (
+                    <ListItem key={id} disablePadding onClick={() => navigate(`${url}`)}>
                         <ListItemButton>
                             <ListItemIcon>
                                 {icon}
@@ -53,7 +90,17 @@ export default function Settings(props: Props) {
                 {drawer}
             </Root>
             <Content>
-
+                <Routes>
+                    {items.map((item: any) => <Route
+                        element={item.element}
+                        path={item.url}
+                        key={item.url}
+                    />)}
+                    <Route
+                        path="*"
+                        element={<Navigate to="/settings/account" replace/>}
+                    />
+                </Routes>
             </Content>
         </ContainerSettings>
     );
@@ -67,7 +114,7 @@ const Root = styled.div`
   width: 240px;
   display: block;
   //background-color: #e0a2a2;
-  overflow-y: scroll;
+  //overflow-y: scroll;
   flex-shrink: 0;
 
   border-right-style: solid;
@@ -92,5 +139,6 @@ const ContainerSettings = styled.div`
 const Content = styled.div`
   //height: 200vh;
   width: 100%;
+  padding: 10px;
   //background-color: green;
 `;

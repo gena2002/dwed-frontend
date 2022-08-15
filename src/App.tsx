@@ -1,20 +1,18 @@
 import React from 'react';
-// import GitHubIcon from '@mui/icons-material/GitHub';
-// import IconButton from '@mui/material/IconButton';
-// import {Tooltip} from "@mui/material";
-import {BrowserRouter} from "react-router-dom";
 import './styles/App.css';
 import './assets/fonts/golostext/golostext.css';
-
+import {BrowserRouter} from "react-router-dom";
 import Header from "./components/Header";
-import Settings from "./pages/Settings";
+import AppRouter from "./components/AppRouter";
+import PageLoader from "./components/UI/PageLoader";
 
 const App = () => {
-
     return (
         <BrowserRouter>
             <Header/>
-            <Settings/>
+            <React.Suspense fallback={<PageLoader/>}>
+                <AppRouter/>
+            </React.Suspense>
         </BrowserRouter>
     );
 };

@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <React.StrictMode>
+        <React.Suspense fallback={<div>Загрузка</div>}>
+            <App/>
+        </React.Suspense>
+    </React.StrictMode>
 );

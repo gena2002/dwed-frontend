@@ -11,8 +11,11 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import {useNavigate} from "react-router-dom";
 
 export default function AccountMenu() {
+    const navigate = useNavigate();
+
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -23,17 +26,17 @@ export default function AccountMenu() {
     };
     return (
         <React.Fragment>
-                <Tooltip title="Account settings">
-                    <IconButton
-                        onClick={handleClick}
-                        size="small"
-                        aria-controls={open ? 'account-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}
-                    >
-                        <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
-                    </IconButton>
-                </Tooltip>
+            <Tooltip title="Account settings">
+                <IconButton
+                    onClick={handleClick}
+                    size="small"
+                    aria-controls={open ? 'account-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                >
+                    <Avatar sx={{width: 32, height: 32}}>M</Avatar>
+                </IconButton>
+            </Tooltip>
             <Menu
                 anchorEl={anchorEl}
                 id="account-menu"
@@ -66,31 +69,31 @@ export default function AccountMenu() {
                         },
                     },
                 }}
-                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                transformOrigin={{horizontal: 'right', vertical: 'top'}}
+                anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
             >
                 <MenuItem>
-                    <Avatar /> Profile
+                    <Avatar/> Profile
                 </MenuItem>
                 <MenuItem>
-                    <Avatar /> My account
+                    <Avatar/> My account
                 </MenuItem>
-                <Divider />
+                <Divider/>
                 <MenuItem>
                     <ListItemIcon>
-                        <PersonAdd fontSize="small" />
+                        <PersonAdd fontSize="small"/>
                     </ListItemIcon>
                     Add another account
                 </MenuItem>
-                <MenuItem>
+                <MenuItem onClick={() => navigate('/settings/account')}>
                     <ListItemIcon>
-                        <Settings fontSize="small" />
+                        <Settings fontSize="small"/>
                     </ListItemIcon>
                     Настройки
                 </MenuItem>
                 <MenuItem>
                     <ListItemIcon>
-                        <Logout fontSize="small" />
+                        <Logout fontSize="small"/>
                     </ListItemIcon>
                     Выйти
                 </MenuItem>

@@ -9,16 +9,19 @@ import styled from "styled-components";
 import Container from "./UI/Container";
 import SearchInput from "./UI/SearchInput";
 import AccountMenu from "./UI/AccountMenu";
+import {useNavigate} from "react-router-dom";
 
 type HeaderProps = {}
 
 const Header = ({}: HeaderProps) => {
+    const navigate = useNavigate();
+
     return (
         <Root>
             <Container>
                 <Part>
                     <Tooltip title="Главная страница DWED">
-                        <Logo>
+                        <Logo onClick={() => navigate('/')}>
                             DWED
                         </Logo>
                     </Tooltip>
@@ -71,7 +74,7 @@ const Root = styled.div`
   position: sticky;
   position: -webkit-sticky;
   top: 0;
-  z-index: 99999;
+  z-index: 1200;
 `;
 
 type PartProps = {
