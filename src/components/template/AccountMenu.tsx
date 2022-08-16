@@ -12,10 +12,17 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import {useNavigate} from "react-router-dom";
+import {useContext} from "react";
+import {Context} from "../../context";
+import {observer} from "mobx-react-lite";
 
-export default function AccountMenu() {
+type Props = {
+    onClose: () => void;
+}
+
+function AccountMenu({onClose}: Props) {
     const navigate = useNavigate();
-
+    const {store} = useContext(Context);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -23,6 +30,7 @@ export default function AccountMenu() {
     };
     const handleClose = () => {
         setAnchorEl(null);
+        onClose()
     };
     return (
         <React.Fragment>
@@ -34,7 +42,8 @@ export default function AccountMenu() {
                     aria-haspopup="true"
                     aria-expanded={open ? 'true' : undefined}
                 >
-                    <Avatar sx={{width: 32, height: 32}}>M</Avatar>
+
+                    <Avatar src={store.user.avatar} sx={{width: 32, height: 32}}></Avatar>
                 </IconButton>
             </Tooltip>
             <Menu
@@ -88,7 +97,10 @@ export default function AccountMenu() {
                     </ListItemIcon>
                     Настройки
                 </MenuItem>
-                <MenuItem>
+                <MenuItem onClick={() => {
+                    store.logout()
+                    navigate('/')
+                }}>
                     <ListItemIcon>
                         <Logout fontSize="small"/>
                     </ListItemIcon>
@@ -98,3 +110,5 @@ export default function AccountMenu() {
         </React.Fragment>
     );
 }
+
+export default observer(AccountMenu)

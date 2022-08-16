@@ -1,10 +1,11 @@
 import React, {useContext, useMemo} from "react";
-// import {AuthContext} from "../context";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {privateRoutes, publicRoutes} from "../router";
+import {observer} from "mobx-react-lite";
+import {Context} from "../context";
 
 const AppRouter = () => {
-    // const {isAuth, isLoading} = useContext(AuthContext);
+    const {store} = useContext(Context);
 
     function render(routes: any) {
         return (
@@ -18,25 +19,15 @@ const AppRouter = () => {
         )
     }
 
-    // function accessRoutes(privateRoutes:any, publicRoutes:any) {
-    //     if (isAuth) return render(privateRoutes)
-    //     return render(publicRoutes)
-    // }
-    //
-    //
-    // if (isLoading) return <div>Загрузка...</div>
-
     return (<>
             <Routes>
-                {render(privateRoutes)}
-                {/*{accessRoutes(privateRoutes, publicRoutes)}*/}
-                {/*<Route exact path={`/`} element={<Home/>}/>*/}
-                {/*<Route exact path={`/faq`} element={<FAQ/>}/>*/}
-                {/*<Route path={`*`} element={<Error/>}/>*/}
+                {store.isAuth && render(privateRoutes)}
+                {render(publicRoutes)}
+                <Route path={`*`} element={<div>Error</div>}/>
             </Routes>
         </>
 
     );
 };
 
-export default AppRouter;
+export default observer(AppRouter);
