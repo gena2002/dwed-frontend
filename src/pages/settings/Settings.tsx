@@ -50,7 +50,7 @@ export default function Settings(props: Props) {
             id: 4,
             title: 'Chat settings',
             icon: <ChatOutlinedIcon/>,
-            url: 'chat_settings',
+            url: 'chat',
             element: <ChatSettings/>
         },
         {
@@ -64,7 +64,7 @@ export default function Settings(props: Props) {
 
     const drawer = (
         <div>
-            <Toolbar/>
+            <Toolbar sx={{fontWeight: '500', fontSize: '18px'}}>Настройки</Toolbar>
             <Divider/>
             <List>
                 {items.map(({id, title, icon, url}: any) => (
