@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ForwardedRef, forwardRef} from 'react';
 import styled from "styled-components";
 
 type ContainerProps = {
@@ -6,13 +6,15 @@ type ContainerProps = {
     style?: object
 }
 
-const Container = ({children, ...style}: ContainerProps) => {
-    return (
-        <Root {...style}>
-            {children}
-        </Root>
-    );
-};
+const Container = forwardRef(
+    ({children, ...style}: ContainerProps, ref: ForwardedRef<HTMLDivElement>) => {
+        return (
+            <Root {...style} ref={ref}>
+                {children}
+            </Root>
+        );
+    }
+)
 
 export default Container;
 

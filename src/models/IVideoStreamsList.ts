@@ -1,4 +1,5 @@
 import {IMediaCatsList} from "./IMediaCatsList";
+import * as React from "react";
 
 export interface IVideoStreamsList {
     channel_name: string;
