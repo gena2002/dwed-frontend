@@ -3,11 +3,12 @@ import styled from "styled-components";
 
 type ContainerProps = {
     children: React.ReactNode;
+    style?: object
 }
 
-const Container = ({children}: ContainerProps) => {
+const Container = ({children, ...style}: ContainerProps) => {
     return (
-        <Root>
+        <Root {...style}>
             {children}
         </Root>
     );

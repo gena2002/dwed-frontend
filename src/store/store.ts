@@ -4,6 +4,8 @@ import axios from 'axios';
 import AuthService from "../services/AuthService";
 import AccountService from "../services/AccountService";
 import {AccountResponse} from "../models/response/AccountResponse";
+import StreamingService from "../services/StreamingService";
+import {StreamsResponse} from "../models/response/StreamsResponse";
 
 
 export default class Store {
@@ -110,7 +112,24 @@ export default class Store {
         } finally {
             this.setLoading(false)
         }
-
     }
+
+    streams = {} as StreamsResponse;
+
+    setStreams(streams: StreamsResponse) {
+        this.streams = streams;
+    }
+
+    async getAllStreams(limit: number, offset: number) {
+        try {
+            const response = await StreamingService.get(limit, offset);
+            console.log(response.data)
+            this.setStreams(response.data)
+        } catch (e: any) {
+            console.log(e.response?.data?.message);
+        } finally {
+        }
+    }
+
 
 }

@@ -65,7 +65,7 @@ const Header = ({}: HeaderProps) => {
                         </StyledIconButton>
                     </Tooltip>
                     <Tooltip title="Стримы">
-                        <StyledIconButton>
+                        <StyledIconButton onClick={() => navigate('/streams')}>
                             <VideocamOutlinedIcon/>
                         </StyledIconButton>
                     </Tooltip>
