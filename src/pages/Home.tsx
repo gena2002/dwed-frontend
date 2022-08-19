@@ -8,16 +8,16 @@ const Home = () => {
     return (
         <div>
             <div>Home</div>
-            {/*<TextEditorProvider>*/}
-            {/*    Hello*/}
-            {/*</TextEditorProvider>*/}
-            <Editor
-                editorState={editorApi.state}
-                toolbarClassName="toolbarClassName"
-                wrapperClassName="wrapperClassName"
-                editorClassName="editorClassName"
-                onEditorStateChange={editorApi.onChange}
-            />;
+            {/*/!*<TextEditorProvider>*!/*/}
+            {/*/!*    Hello*!/*/}
+            {/*/!*</TextEditorProvider>*!/*/}
+            {/*<Editor*/}
+            {/*    editorState={editorApi.state}*/}
+            {/*    toolbarClassName="toolbarClassName"*/}
+            {/*    wrapperClassName="wrapperClassName"*/}
+            {/*    editorClassName="editorClassName"*/}
+            {/*    onEditorStateChange={editorApi.onChange}*/}
+            {/*/>;*/}
         </div>
     );
 };

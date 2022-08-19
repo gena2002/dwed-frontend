@@ -4,11 +4,12 @@ import styled from "styled-components";
 type PropsType = {
     children: React.ReactNode;
     color?: string;
+    onClick?: () => void;
 }
 
-const MyLink = ({children, color}: PropsType) => {
+const MyLink = ({children, color, onClick}: PropsType) => {
     return (
-        <Root color={color}>
+        <Root color={color} onClick={onClick}>
             {children}
         </Root>
     );

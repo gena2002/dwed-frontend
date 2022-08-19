@@ -85,8 +85,7 @@ const Header = ({}: HeaderProps) => {
                         <AccountMenu onClose={handleClose}/>
                     </> : <Part>
                         <Button variant="text" onClick={handleClickOpen}>Войти</Button>
-                        <Button variant="text" onClick={() => {
-                        }}>Регистрация</Button>
+                        <Button variant="text" onClick={() => navigate('/signup')}>Регистрация</Button>
                         <SimpleDialog
                             open={open}
                             onClose={handleClose}>

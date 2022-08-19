@@ -6,6 +6,7 @@ import {IconButton, Tooltip} from "@mui/material";
 import HighlightOffOutlinedIcon from '@mui/icons-material/HighlightOffOutlined';
 import {observer} from "mobx-react-lite";
 import {Context} from "../context";
+import {useNavigate} from "react-router-dom";
 
 type PropsType = {
     open: boolean;
@@ -19,6 +20,9 @@ const Auth = (props: PropsType) => {
         // e.stopPropagation()
         onClose()
     };
+
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         if (store.isAuth) handleClose()
@@ -40,7 +44,10 @@ const Auth = (props: PropsType) => {
                 </Tooltip>
             </CloseButton>
             <LoginByPhoneForm/>
-            <MyLink color={'#fff'}>
+            <MyLink color={'#fff'} onClick={() => {
+                navigate('/signup')
+                handleClose()
+            }}>
                 У меня нет аккаунта. Зарегистрироватся
             </MyLink>
         </Root>
