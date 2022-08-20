@@ -81,7 +81,7 @@ function AccountMenu({onClose}: Props) {
                 transformOrigin={{horizontal: 'right', vertical: 'top'}}
                 anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
             >
-                <MenuItem>
+                <MenuItem onClick={() => navigate(`/profile/${store.user.username}`)}>
                     <Avatar/> My account
                 </MenuItem>
                 <Divider/>

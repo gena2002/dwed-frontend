@@ -4,19 +4,34 @@ import {TextField} from "@mui/material";
 import {LoadingButton} from '@mui/lab';
 import MyLink from "../UI/MyLink";
 import InputMask from "react-input-mask";
-
 import {Context} from '../../context';
 import {observer} from "mobx-react-lite";
+import {useNavigate} from "react-router-dom";
 
 const LoginByPhoneForm = () => {
+    const navigate = useNavigate();
+
     const [phone, setPhone] = useState<string>('');
     const {store} = useContext(Context);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const [error, setError] = useState(false);
 
     function submit(e: { preventDefault: () => void; }) {
         e.preventDefault();
+        setIsLoading(true);
         const _phone = phone.replace(/[\s.?*^$[\]\\(){}|-]/g, "")
-        store.login(_phone)
-        store.getAccount()
+        store.login(_phone).then(r => {
+            if (r) {
+                store.getAccount().then(() => {
+                    navigate(`/profile/${store.user.username}`)
+                })
+            } else {
+                setError(true)
+            }
+            setIsLoading(false);
+        })
+
     }
 
     // useEffect(() => {
@@ -33,14 +48,16 @@ const LoginByPhoneForm = () => {
                 disabled={false}
                 onChange={(e) => setPhone(e.target.value)}
             >
-                <TextField label="Телефон"
-                           helperText="Введите номер телефона"
-                           required
-                           fullWidth/>
+                <TextField
+                    error={error}
+                    label="Телефон"
+                    helperText="Введите номер телефона"
+                    required
+                    fullWidth/>
             </InputMask>
 
 
-            <EnterButton type={'submit'} loading={store.isLoading} variant="contained">Войти</EnterButton>
+            <EnterButton type={'submit'} loading={isLoading} variant="contained">Войти</EnterButton>
             <MyLink>
                 Войти с помощью логина и пароля
             </MyLink>

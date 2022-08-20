@@ -43,6 +43,7 @@ export default class Store {
     // }
 
     async login(phone: string) {
+        let isLogin = false;
         try {
             this.setLoading(true)
             const response = await AuthService.FastAuth(phone);
@@ -50,13 +51,16 @@ export default class Store {
             localStorage.setItem('refresh', response.data.refresh)
             localStorage.setItem('access', response.data.access)
             this.setAuth(true);
+            isLogin = true;
         } catch (e: any) {
             console.log(e.response?.data?.message);
             this.setAuth(false);
+            isLogin = false;
         } finally {
             this.setLoading(false)
         }
 
+        return isLogin;
     }
 
 
